@@ -26,14 +26,14 @@
 
 #include <DataThreadHeaders.h>
 
-class DataThreadPlugin : public DataThread
+class LSLInletPlugin : public DataThread
 {
 public:
 	/** The class constructor, used to initialize any members. */
-	DataThreadPlugin(SourceNode* sn);
+    LSLInletPlugin(SourceNode* sn);
 
 	/** The class destructor, used to deallocate memory */
-	~DataThreadPlugin();
+	~LSLInletPlugin();
 
     // ------------------------------------------------------------
     //                  PURE VIRTUAL METHODS

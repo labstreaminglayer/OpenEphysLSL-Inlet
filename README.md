@@ -1,46 +1,63 @@
-# Data Thread Plugin Template
+# LabStreamingLayer OpenEphys Data Thread Plugin
 
-This repository contains a template for building **Data Thread** plugins for the [Open Ephys GUI](https://github.com/open-ephys/plugin-GUI). Data Thread plugins typically communicate with an external piece of hardware with an acquisition clock that is not synchronized with the GUI's signal processing callbacks. Examples of commonly used Data Thread plugins include [Neuropixels PXI](https://github.com/open-ephys-plugins/neuropixels-pxi) and the [Rhythm Plugins](https://github.com/open-ephys-plugins/rhythm-plugins).
+This repository contains a [LabStreamingLayer](http://labstreaminglayer.readthedocs.io/) **Data Thread** plugin for the [Open Ephys GUI](https://github.com/open-ephys/plugin-GUI).
 
-Information on the Open Ephys Plugin API can be found on [the GUI's documentation site](https://open-ephys.github.io/gui-docs/Developer-Guide/Open-Ephys-Plugin-API.html).
+## Releases
 
-## Creating a new Data Thread Plugin
+TODO: These don't exist yet...
 
-1. Click "Use this template" to instantiate a new repository under your GitHub account. 
-2. Clone the new repository into a directory at the same level as the `plugin-GUI` repository. This is typically named `OEPlugins`, but it can have any name you'd like.
-3. Modify the [OpenEphysLib.cpp file](https://open-ephys.github.io/gui-docs/Developer-Guide/Creating-a-new-plugin.html) to include your plugin's name and version number.
-4. Create the plugin [build files](https://open-ephys.github.io/gui-docs/Developer-Guide/Compiling-plugins.html) using CMake.
-5. Use Visual Studio (Windows), Xcode (macOS), or `make` (Linux) to compile the plugin.
-6. Edit the code to add custom functionality, and add additional source files as needed.
+Check the repository's [releases](https://github.com/labstreaminglayer/OpenEphysLSL-Inlet/releases) page for a downloadable plugin.
 
-## Repository structure
+## Building
+
+### Prerequisite: liblsl
+
+You will need `liblsl` on your local disk in a location that CMake can find. This is platform-dependent.
+
+#### MacOS
+
+The easiest way is to use homebrew:
+
+`brew install labstreaminglayer/tap/lsl`
+
+Otherwise, see the [Miscellaneous Platforms](#miscellaneous-platforms) section.
+
+#### Windows
+
+Download `liblsl-x.xx.x-Win_amd64.zip` (where x.xx.x is the latest version number) from the [liblsl Releases page](https://github.com/sccn/liblsl/releases).
+Extract that archive somewhere convenient.
+Pass the path to the extracted folder as a CMake argument (`-DLSL_INSTALL_ROOT=path/to/extracted/liblsl`).
+
+#### Ubuntu Linux
+
+Download `liblsl-x.xx.x-yyy_amd64.deb` (where x.xx.x is the latest version number and yyy is the name of your Ubuntu distribution) from the [liblsl Releases page](https://github.com/sccn/liblsl/releases). Use your Ubuntu package manager to install it.
+
+#### Miscellaneous Platforms
+
+See the [liblsl README](https://github.com/sccn/liblsl#building-liblsl) for more options.
+
+### Prerequisite: OpenEphys Plugin-GUI
+
+You also need the OpenEphys Plugin GUI Source code.
+
+Download or clone from its repo [here](https://github.com/open-ephys/plugin-GUI).
+
+Your folder structure should look like the following
+
+```
+shared_root/
+    - plugin-GUI
+    - OEPlugins/
+        OpenEphysLSL-Inlet (this repo)
+```
+
+### Repository structure
 
 This repository contains 3 top-level directories:
 
 - `Build` - Plugin build files will be auto-generated here. These files will be ignored in all `git` commits.
 - `Source` - All plugin source files (`.h` and `.cpp`) should live here. There can be as many source code sub-directories as needed.
 - `Resources` - This is where you should store any non-source-code files, such as library files or scripts.
-
-## Using external libraries
-
-To link the plugin to external libraries, it is necessary to manually edit the Build/CMakeLists.txt file. The code for linking libraries is located in comments at the end.
-For most common libraries, the `find_package` option is recommended. An example would be
-
-```cmake
-find_package(ZLIB)
-target_link_libraries(${PLUGIN_NAME} ${ZLIB_LIBRARIES})
-target_include_directories(${PLUGIN_NAME} PRIVATE ${ZLIB_INCLUDE_DIRS})
-```
-
-If there is no standard package finder for cmake, `find_library`and `find_path` can be used to find the library and include files respectively. The commands will search in a variety of standard locations For example
-
-```cmake
-find_library(ZMQ_LIBRARIES NAMES libzmq-v120-mt-4_0_4 zmq zmq-v120-mt-4_0_4) #the different names after names are not a list of libraries to include, but a list of possible names the library might have, useful for multiple architectures. find_library will return the first library found that matches any of the names
-find_path(ZMQ_INCLUDE_DIRS zmq.h)
-
-target_link_libraries(${PLUGIN_NAME} ${ZMQ_LIBRARIES})
-target_include_directories(${PLUGIN_NAME} PRIVATE ${ZMQ_INCLUDE_DIRS})
-```
 
 ### Providing libraries for Windows
 

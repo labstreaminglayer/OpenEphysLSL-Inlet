@@ -43,7 +43,7 @@ extern "C" EXPORT void getLibInfo(Plugin::LibraryInfo* info)
 	Should not be changed to ensure it is always equal to the one used in the latest codebase.
 	The GUI refuses to load plugins with mismatched API versions */
 	info->apiVersion = PLUGIN_API_VER;
-	info->name = "DataThreadLibrary"; // <---- update
+	info->name = "LSLInletLibrary"; // <---- update
 	info->libVersion = "0.1.0"; // <---- update
 	info->numPlugins = NUM_PLUGINS;
 }
@@ -56,8 +56,8 @@ extern "C" EXPORT int getPluginInfo(int index, Plugin::PluginInfo* info)
 	case 0:
 
 		info->type = Plugin::Type::DATA_THREAD;
-		info->dataThread.name = "Custom Source"; // <---- update 
-		info->dataThread.creator = &createDataThread<DataThreadPlugin>; // <---- update
+		info->dataThread.name = "LabStreamingLayer Inlets"; // <---- update
+		info->dataThread.creator = &createDataThread<LSLInletPlugin>; // <---- update
 		break;
 
 	default:

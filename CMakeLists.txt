@@ -27,7 +27,7 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
 	$<$<CONFIG:Debug>:DEBUG=1>
 	$<$<CONFIG:Debug>:_DEBUG=1>
 	$<$<CONFIG:Release>:NDEBUG=1>
-	)
+)
 
 
 set(SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Source)
@@ -92,10 +92,16 @@ foreach( src_file IN ITEMS ${SRC_FILES})
 endforeach()
 
 #additional libraries, if needed
-#find_package(LIBNAME)
-#or
-#find_library(LIBNAME_LIBRARIES NAMES libname)
-#find_path(LIBNAME_INCLUDE_DIRS includefile.h)
-#
-#target_link_libraries(${PLUGIN_NAME} ${LIBNAME_LIBRARIES})
-#target_include_directories(${PLUGIN_NAME} PRIVATE ${LIBNAME_INCLUDE_DIRS})
+find_package(LSL REQUIRED
+	HINTS ${LSL_INSTALL_ROOT}
+	PATH_SUFFIXES share/LSL
+)
+target_link_libraries(${PLUGIN_NAME} LSL::lsl)
+
+# Copy lsl.dll into the build folder for easier debugging.
+if (WIN32)
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			$<TARGET_FILE:LSL::lsl>
+			$<TARGET_FILE_DIR:${PLUGIN_NAME}>)
+endif()

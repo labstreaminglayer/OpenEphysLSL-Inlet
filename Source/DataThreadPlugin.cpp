@@ -25,39 +25,48 @@
 
 #include "DataThreadPluginEditor.h"
 
-DataThreadPlugin::DataThreadPlugin(SourceNode* sn) : DataThread(sn)
+#include "lsl_cpp.h"
+
+LSLInletPlugin::LSLInletPlugin(SourceNode* sn) : DataThread(sn)
 {
 
 }
 
 
-DataThreadPlugin::~DataThreadPlugin()
+LSLInletPlugin::~LSLInletPlugin()
 {
 
 }
 
-bool DataThreadPlugin::updateBuffer()
+bool LSLInletPlugin::updateBuffer()
 {
+    // https://open-ephys.github.io/gui-docs/Developer-Guide/Open-Ephys-Plugin-API/Data-Threads.html
+    // TODO: inlet->pull chunk
+    // TODO: add to buffer
+    // dataBuffer->addToBuffer(scaled_samples, scaled_numbers, timestamps, event_codes, numRead)
     return true;
 }
 
-bool DataThreadPlugin::foundInputSource()
+bool LSLInletPlugin::foundInputSource()
 {
+    // TODO: Create resolver
     return true;
 }
 
-bool DataThreadPlugin::startAcquisition()
+bool LSLInletPlugin::startAcquisition()
 {
+    // TODO: Create inlet(s)
     return true;
 }
 
-bool DataThreadPlugin::stopAcquisition()
+bool LSLInletPlugin::stopAcquisition()
 {
+    // TODO: Destroy inlet(s)
     return true;
 }
 
 
-void DataThreadPlugin::updateSettings(OwnedArray<ContinuousChannel>* continuousChannels,
+void LSLInletPlugin::updateSettings(OwnedArray<ContinuousChannel>* continuousChannels,
     OwnedArray<EventChannel>* eventChannels,
     OwnedArray<SpikeChannel>* spikeChannels,
     OwnedArray<DataStream>* sourceStreams,
@@ -69,13 +78,13 @@ void DataThreadPlugin::updateSettings(OwnedArray<ContinuousChannel>* continuousC
 }
 
 
-void DataThreadPlugin::resizeBuffers()
+void LSLInletPlugin::resizeBuffers()
 {
 
 }
 
 
-std::unique_ptr<GenericEditor> DataThreadPlugin::createEditor(SourceNode* sn)
+std::unique_ptr<GenericEditor> LSLInletPlugin::createEditor(SourceNode* sn)
 {
     
     std::unique_ptr<DataThreadPluginEditor> editor = std::make_unique<DataThreadPluginEditor>(sn);
@@ -84,13 +93,13 @@ std::unique_ptr<GenericEditor> DataThreadPlugin::createEditor(SourceNode* sn)
 
 }
 
-void DataThreadPlugin::handleBroadcastMessage(String msg)
+void LSLInletPlugin::handleBroadcastMessage(String msg)
 {
 
 
 }
 
-String DataThreadPlugin::handleConfigMessage(String msg)
+String LSLInletPlugin::handleConfigMessage(String msg)
 {
 
     return "";
