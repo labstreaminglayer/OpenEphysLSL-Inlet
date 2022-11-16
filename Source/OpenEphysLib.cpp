@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <PluginInfo.h>
 
-#include "DataThreadPlugin.h"
+#include "LSLInletThread.h"
 
 #include <string>
 
@@ -37,27 +37,27 @@ using namespace Plugin;
 
 #define NUM_PLUGINS 1
 
-extern "C" EXPORT void getLibInfo(Plugin::LibraryInfo* info)
+extern "C" EXPORT void getLibInfo(Plugin::LibraryInfo *info)
 {
 	/* API version, defined by the GUI source.
 	Should not be changed to ensure it is always equal to the one used in the latest codebase.
 	The GUI refuses to load plugins with mismatched API versions */
 	info->apiVersion = PLUGIN_API_VER;
-	info->name = "LSLInletLibrary"; // <---- update
-	info->libVersion = "0.1.0"; // <---- update
+	info->name = "LSLInletLibrary";
+	info->libVersion = "0.1.0";
 	info->numPlugins = NUM_PLUGINS;
 }
 
-extern "C" EXPORT int getPluginInfo(int index, Plugin::PluginInfo* info)
+extern "C" EXPORT int getPluginInfo(int index, Plugin::PluginInfo *info)
 {
 	switch (index)
 	{
-		//one case per plugin. This example is for a processor which connects directly to the signal chain
+		// one case per plugin. This example is for a processor which connects directly to the signal chain
 	case 0:
 
 		info->type = Plugin::Type::DATA_THREAD;
-		info->dataThread.name = "LabStreamingLayer Inlets"; // <---- update
-		info->dataThread.creator = &createDataThread<LSLInletPlugin>; // <---- update
+		info->dataThread.name = "LSL Inlet";
+		info->dataThread.creator = &createDataThread<LSLInletThread>;
 		break;
 
 	default:
@@ -69,8 +69,8 @@ extern "C" EXPORT int getPluginInfo(int index, Plugin::PluginInfo* info)
 
 #ifdef WIN32
 BOOL WINAPI DllMain(IN HINSTANCE hDllHandle,
-	IN DWORD     nReason,
-	IN LPVOID    Reserved)
+					IN DWORD nReason,
+					IN LPVOID Reserved)
 {
 	return TRUE;
 }
