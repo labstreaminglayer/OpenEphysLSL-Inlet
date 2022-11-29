@@ -1,9 +1,29 @@
-# Introduction
+# LSL inlet
+
+## Introduction
 
 This is an [Open Ephys GUI](https://github.com/open-ephys/plugin-GUI) data thread plugin for [LSL](https://labstreaminglayer.readthedocs.io/index.html) streams.
-Please read the guide regarding compiling plugins from [open-ephys](https://open-ephys.github.io/gui-docs/Developer-Guide/Compiling-plugins.html) and install cmake.
+
+In order to try it out, download a release and follow the manual installation steps from the release archive.
+
+![lsl-inlet-screenshot](Resources/lsl-inlet.png)
+
+## Usage
+
+Before starting the data acquisition process a data stream needs to be selected. The list of available data streams (and marker streams) is updated every time the button `Refresh streams` is pressed. During data acquisition samples can be scaled in real time by adjusting the `Scale` factor.
+
+A marker stream can be optionally selected. The list of marker streams only shows streams that have an irregular rate and a single channel. When a marker is received it is broadcasted to the entire signal chain. For a marker to be shown in the LFP view, a `markers to TTL mapping` is required. This is a json file that should contain a set of Key-Value pairs of markers and corresponding TTL values, for example:
+```
+{
+    "Marker_1": 1,
+    "Marker_2": 2
+}
+``` 
+
 
 ## How to build
+
+Please read the guide regarding compiling plugins from [open-ephys](https://open-ephys.github.io/gui-docs/Developer-Guide/Compiling-plugins.html) and install cmake.
 
 The plugin repo needs to be cloned inside a directory (e.g. MyPlugins) that is at the same level as [plugin-GUI](https://github.com/open-ephys/plugin-GUI/), for example:
 
