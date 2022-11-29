@@ -98,21 +98,6 @@ LSLInletEditor::LSLInletEditor(GenericProcessor *parentNode, LSLInletThread *thr
     scaleInput->setColour(Label::backgroundColourId, Colours::lightgrey);
     scaleInput->addListener(this);
     addAndMakeVisible(scaleInput);
-
-    // Samples
-    samplesLabel = new Label("Samples", "Samples");
-    samplesLabel->setFont(Font("Small Text", 10, Font::plain));
-    samplesLabel->setBounds(170, 26, 40, 8);
-    samplesLabel->setColour(Label::textColourId, Colours::darkgrey);
-    addAndMakeVisible(samplesLabel);
-
-    samplesInput = new Label("Samples", String(inletThread->numSamples));
-    samplesInput->setFont(Font("Small Text", 10, Font::plain));
-    samplesInput->setBounds(170, 37, 40, 16);
-    samplesInput->setEditable(true);
-    samplesInput->setColour(Label::backgroundColourId, Colours::lightgrey);
-    samplesInput->addListener(this);
-    addAndMakeVisible(samplesInput);
 }
 
 void LSLInletEditor::startAcquisition()
@@ -120,7 +105,6 @@ void LSLInletEditor::startAcquisition()
     // Disable the whole GUI
     discoverButton->setEnabled(false);
     streamSelector->setEnabled(false);
-    samplesInput->setEnabled(false);
     fileButton->setEnabled(false);
     dataStreamSelectorBox->setEnabled(false);
     markerStreamSelectorBox->setEnabled(false);
@@ -131,7 +115,6 @@ void LSLInletEditor::stopAcquisition()
     // Reenable the whole GUI
     discoverButton->setEnabled(true);
     streamSelector->setEnabled(true);
-    samplesInput->setEnabled(true);
     fileButton->setEnabled(true);
     dataStreamSelectorBox->setEnabled(true);
     markerStreamSelectorBox->setEnabled(true);
@@ -234,18 +217,6 @@ void LSLInletEditor::labelTextChanged(Label *label)
             scaleInput->setText(String(inletThread->dataScale), dontSendNotification);
         }
     }
-    else if (label == samplesInput)
-    {
-        float samples = samplesInput->getText().getIntValue();
-        if (samples > 0 && samples <= 10000)
-        {
-            inletThread->numSamples = samples;
-        }
-        else
-        {
-            samplesInput->setText(String(inletThread->numSamples), dontSendNotification);
-        }
-    }
 }
 
 void LSLInletEditor::saveCustomParametersToXml(XmlElement *xmlNode)
@@ -253,7 +224,6 @@ void LSLInletEditor::saveCustomParametersToXml(XmlElement *xmlNode)
     XmlElement *parameters = xmlNode->createNewChildElement("PARAMETERS");
 
     parameters->setAttribute("scale", scaleInput->getText());
-    parameters->setAttribute("samples", samplesInput->getText());
 }
 
 void LSLInletEditor::loadCustomParametersFromXml(XmlElement *xmlNode)
@@ -264,8 +234,6 @@ void LSLInletEditor::loadCustomParametersFromXml(XmlElement *xmlNode)
         {
             scaleInput->setText(subNode->getStringAttribute("scale", String(DEFAULT_DATA_SCALE)), dontSendNotification);
             inletThread->dataScale = subNode->getDoubleAttribute("scale", DEFAULT_DATA_SCALE);
-            samplesInput->setText(subNode->getStringAttribute("samples", String(DEFAULT_NUM_SAMPLES)), dontSendNotification);
-            inletThread->numSamples = subNode->getIntAttribute("samples", DEFAULT_NUM_SAMPLES);
         }
     }
 }

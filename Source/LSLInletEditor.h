@@ -83,10 +83,6 @@ private:
 	ScopedPointer<Label> scaleLabel;
 	ScopedPointer<Label> scaleInput;
 
-	// Samples to buffer
-	ScopedPointer<Label> samplesLabel;
-	ScopedPointer<Label> samplesInput;
-
 	// Parent node
 	LSLInletThread *inletThread;
 };

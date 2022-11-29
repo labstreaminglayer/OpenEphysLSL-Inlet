@@ -44,7 +44,7 @@ public:
 
     /** User defined scaling factor for samples */
     float dataScale;
-    /** Number of samples to read during each polling cycle */
+    /** Number of samples to read during each update cycle */
     int numSamples;
 
     /** Index (in the discovered streams list) of the user selected LSL stream */
