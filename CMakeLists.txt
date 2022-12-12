@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5.0)
 
-set(CMAKE_OSX_ARCHITECTURES "x86_64") # force x86 archictecture on mac as Open Ephys still runs under Rosetta
+set(CMAKE_OSX_ARCHITECTURES "x86_64") # force x86 architecture on mac as Open Ephys still runs under Rosetta
 
 if (NOT DEFINED GUI_BASE_DIR)
 	if (DEFINED ENV{GUI_BASE_DIR})
