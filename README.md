@@ -51,32 +51,39 @@ Generate the Makefile using:
 
 ```
 cd Build
-cmake -DCMAKE_OSX_ARCHITECTURES="x86_64" -G "Unix Makefiles" ..
+cmake .. -DCMAKE_OSX_ARCHITECTURES="x86_64" -G "Unix Makefiles"
 ```
 
 For a release build run:
 
 ```
 cd Build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES="x86_64" -G "Unix Makefiles" ..
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES="x86_64" -G "Unix Makefiles"
 ```
 
 Build a binary:
 
 ```
 cd Build
-make
+cmake --build .
 ```
 
 Install the plugin:
 
 ```
 cd Build
-make install
+cmake --build . --target install
 ```
 
 This will copy the plugin (`OpenEphysLSL-Inlet.bundle`) to the `$HOME/Application Support/open-ephys/plugins-api8/` folder
 and will available the next time `Open Ephys GUI` is launched.
+
+Copy liblsl to the plugin's search path:
+
+```
+mkdir  mkdir ~/Library/Application\ Support/open-ephys/shared
+cp ../liblsl/lib/*.dylib* ~/Library/Application\ Support/open-ephys/shared/
+```
 
 ### Windows
 
