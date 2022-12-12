@@ -29,7 +29,7 @@ The plugin repo needs to be cloned inside a directory (e.g. MyPlugins) that is a
 
 ```
 /Users/foo/plugin-GUI
-/Users/foo/plugin-GUI/MyPlugins/lsl-inlet
+/Users/foo/MyPlugins/lsl-inlet
 ```
 
 ### macOS
