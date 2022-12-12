@@ -28,7 +28,7 @@
 
 #include <lsl_cpp.h>
 
-const float DEFAULT_DATA_SCALE = 0.195f;
+const float DEFAULT_DATA_SCALE = 1.0f;
 const int STREAM_SELECTION_UNDEFINED = -1;
 const double TIMESTAMP_UNDEFINED = -1;
 const size_t DEFAULT_NUM_SAMPLES = 1024;
