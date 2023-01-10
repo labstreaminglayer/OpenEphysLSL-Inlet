@@ -85,6 +85,47 @@ mkdir  mkdir ~/Library/Application\ Support/open-ephys/shared
 cp ../liblsl/lib/*.dylib* ~/Library/Application\ Support/open-ephys/shared/
 ```
 
+### Linux
+
+The build was tested on a machine running Fedora 37.
+Clone liblsl inside the plugin's directory and build it:
+
+```
+git clone https://github.com/sccn/liblsl.git
+cd liblsl
+
+cmake -S . -B cmake -G "Unix Makefiles"
+cmake --build cmake -j --config Release
+
+```
+
+Back in the plugin's directory generate the Makefile using:
+
+```
+cd Build
+cmake .. -G "Unix Makefiles"
+```
+
+For a release build run:
+
+```
+cd Build
+cmake .. -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles"
+```
+
+Build a binary:
+
+```
+cd Build
+cmake --build .
+```
+
+To install the plugin copy the file `OpenEphysLSL-Inlet.so` to the `open-ephys` `plugins` folder and copy
+the LSL binaries `lsl.so*` to the `open-ephys` `shared` folder.
+
+The plugin will load the next time `Open Ephys GUI` is launched.
+
+
 ### Windows
 
 The build was tested using Visual Studio 2022 Community Edition.
