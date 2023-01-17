@@ -8,6 +8,10 @@ In order to try it out, download a release and follow the manual installation st
 
 ![lsl-inlet-screenshot](Resources/lsl-inlet.png)
 
+## Development History
+
+This plugin was generated from the [Open Ephys "data thread template"](https://github.com/open-ephys-plugins/data-thread-template) by [Josh Siegle](https://github.com/jsiegle) and the Allen Institute for Brain Science. Specialization for LSL data consumption was developed and opened to the community with :heart: by [AE Studio](https://ae.studio/) and [Chadwick Boulay](https://github.com/cboulay).
+
 ## Usage
 
 Before starting the data acquisition process a data stream needs to be selected. The list of available data streams (and marker streams) is updated every time the button `Refresh streams` is pressed. During data acquisition samples can be scaled in real time by adjusting the `Scale` factor.
